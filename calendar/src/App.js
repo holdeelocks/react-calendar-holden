@@ -28,8 +28,9 @@ class App extends Component {
     };
   }
 
-  addEvent = (ev, date) => {
-    let key = Date.now();
+  addOrEditEvent = (ev, date, key) => {
+    if (!key) key = Date.now();
+    // let key = Date.now();
 
     this.setState(prevState => ({
       days: {
@@ -41,6 +42,19 @@ class App extends Component {
       }
     }));
   };
+
+  // editEvent = (ev, key, date) => {
+  //   this.setState(prevState => ({
+  //     days: {
+  //       ...prevState.days,
+  //       [date]: {
+  //         ...prevState.days[date],
+  //         [key]: ev
+  //       }
+  //     }
+  //   }));
+  // };
+
   render() {
     return <div className="App">Planner</div>;
   }
