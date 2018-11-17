@@ -1,4 +1,9 @@
 import React, { Component } from "react";
+import moment from "./momentRange";
+
+//ONLY FOR DEBUGGING
+
+window.moment = moment;
 
 class App extends Component {
   constructor() {
@@ -30,7 +35,6 @@ class App extends Component {
 
   addOrEditEvent = (ev, date, key) => {
     if (!key) key = Date.now();
-    // let key = Date.now();
 
     this.setState(prevState => ({
       days: {
@@ -43,17 +47,17 @@ class App extends Component {
     }));
   };
 
-  // editEvent = (ev, key, date) => {
-  //   this.setState(prevState => ({
-  //     days: {
-  //       ...prevState.days,
-  //       [date]: {
-  //         ...prevState.days[date],
-  //         [key]: ev
-  //       }
-  //     }
-  //   }));
-  // };
+  deleteEvent = (date, key) => {
+    let dates = { ...this.state.days[date] };
+    delete dates[key];
+
+    this.setState(prevState => ({
+      days: {
+        ...prevState.days,
+        [date]: dates
+      }
+    }));
+  };
 
   render() {
     return <div className="App">Planner</div>;
