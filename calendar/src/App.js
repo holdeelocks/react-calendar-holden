@@ -1,8 +1,33 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import moment from "./momentRange";
 import Day from "./components/Days";
+import styled from "styled-components";
 
 //ONLY FOR DEBUGGING
+const CalendarWrapper = styled.div`
+  width: 90%;
+  margin: 0 auto;
+
+  h1 {
+    font-size: 2rem;
+    width: 100%;
+    margin-bottom: 1%;
+  }
+  .button-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+  button {
+    height: 25px;
+    background-color: lightblue;
+    opacity: 0.5;
+    &:hover {
+      background-color: black;
+      color: white;
+    }
+  }
+`;
 
 window.moment = moment;
 
@@ -81,22 +106,23 @@ class App extends Component {
         .by("days")
     );
     return (
-      <div className="App">
+      <CalendarWrapper>
         <h1>
           {moment(this.state.currentMonth, "YYYYMM").format("MMMM, YYYY")}
         </h1>
-        <button onClick={this.prevMonth}>&larr;</button>
-        <button onClick={this.nextMonth}>&rarr;</button>
+        <div className="button-container">
+          <button onClick={this.prevMonth}>&larr;</button>
+          <button onClick={this.nextMonth}>&rarr;</button>
+        </div>
+
         {dates.map(date => (
-          <Fragment>
-            <Day
-              date={date}
-              key={date.format("YYYYMMDD")}
-              events={this.state.days[date.format("YYYYMMDD")]}
-            />
-          </Fragment>
+          <Day
+            date={date}
+            key={date.format("YYYYMMDD")}
+            events={this.state.days[date.format("YYYYMMDD")]}
+          />
         ))}
-      </div>
+      </CalendarWrapper>
     );
   }
 }
