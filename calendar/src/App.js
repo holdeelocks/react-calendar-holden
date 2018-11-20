@@ -2,6 +2,13 @@ import React, { Component } from "react";
 import moment from "./momentRange";
 import Day from "./components/Days";
 import styled from "styled-components";
+import { createGlobalStyle } from "styled-components";
+
+const GlobalStyle = createGlobalStyle`
+  * {
+    box-sizing: border-box;
+  }
+`;
 
 //ONLY FOR DEBUGGING
 const CalendarWrapper = styled.div`
@@ -11,12 +18,13 @@ const CalendarWrapper = styled.div`
   h1 {
     font-size: 2rem;
     width: 100%;
-    margin-bottom: 1%;
+    margin-bottom: 2.5%;
   }
   .button-container {
     width: 100%;
     display: flex;
     justify-content: space-between;
+    margin-bottom: 2.5%;
   }
   button {
     height: 25px;
@@ -107,6 +115,7 @@ class App extends Component {
     );
     return (
       <CalendarWrapper>
+        <GlobalStyle />
         <h1>
           {moment(this.state.currentMonth, "YYYYMM").format("MMMM, YYYY")}
         </h1>

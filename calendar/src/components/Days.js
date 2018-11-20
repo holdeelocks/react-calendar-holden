@@ -27,8 +27,8 @@ const Event = styled.div`
     border: 1px solid lightblue;
     text-align: center;
     &:hover {
-      background-color: lightlblue;
-      color: lightblue;
+      background-color: lightblue;
+      color: white;
       cursor: pointer;
     }
   }
