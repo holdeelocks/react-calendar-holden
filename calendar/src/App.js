@@ -13,11 +13,11 @@ const GlobalStyle = createGlobalStyle`
 const CalendarWrapper = styled.div`
   width: 90%;
   margin: 0 auto;
-
   h1 {
     font-size: 2rem;
     width: 100%;
     margin-bottom: 2.5%;
+    color: #3f5f7f;
   }
   .button-container {
     width: 100%;
@@ -121,8 +121,8 @@ class App extends Component {
           {moment(this.state.currentMonth, "YYYYMM").format("MMMM, YYYY")}
         </h1>
         <div className="button-container">
-          <button onClick={this.prevMonth}>&larr;</button>
-          <button onClick={this.nextMonth}>&rarr;</button>
+          <button onClick={this.prevMonth}>&larr; Previous</button>
+          <button onClick={this.nextMonth}>Next &rarr;</button>
         </div>
 
         {dates.map(date => (

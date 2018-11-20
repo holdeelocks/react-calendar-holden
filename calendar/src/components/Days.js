@@ -4,14 +4,15 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 
 const DayWrap = styled.div`
-  height: 100px;
+  height: 150px;
   width: 100%;
   display: flex;
   padding: 1%;
-  border: 1px solid lightslategrey;
-  border-bottom: none;
-  &:last-child {
-    border-bottom: 1px solid lightslategrey;
+  border: 1px solid #203740;
+  margin-bottom: 3%;
+  background-color: #cde6ff;
+  &:hover {
+    box-shadow: 5px -5px #67737f;
   }
 `;
 
@@ -19,17 +20,21 @@ const Event = styled.div`
   font-weight: bold;
   margin-left: 2%;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
+  width: 100%;
 
   p {
     margin: 0;
     margin-left: 2%;
+    padding: 1%;
     border: 1px solid lightblue;
     text-align: center;
+    cursor: pointer;
+    background-color: #a4b8cc;
+    opacity: 0.75;
     &:hover {
-      background-color: lightblue;
-      color: white;
-      cursor: pointer;
+      box-shadow: -3px -3px #67737f;
+      border: 1px solid #67737f;
     }
   }
 `;
@@ -37,7 +42,7 @@ const Event = styled.div`
 const Day = props => {
   return (
     <DayWrap>
-      {props.date.format("ddd, DD")}
+      {props.date.format("ddd, Do")}
       <Event>
         {props.events &&
           Object.keys(props.events).map(key => {
