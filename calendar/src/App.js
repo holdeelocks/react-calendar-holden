@@ -10,7 +10,6 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-//ONLY FOR DEBUGGING
 const CalendarWrapper = styled.div`
   width: 90%;
   margin: 0 auto;
@@ -30,6 +29,7 @@ const CalendarWrapper = styled.div`
     height: 25px;
     background-color: lightblue;
     opacity: 0.5;
+    cursor: pointer;
     &:hover {
       background-color: black;
       color: white;
@@ -37,6 +37,7 @@ const CalendarWrapper = styled.div`
   }
 `;
 
+//ONLY FOR DEBUGGING
 window.moment = moment;
 
 class App extends Component {
