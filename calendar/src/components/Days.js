@@ -11,8 +11,10 @@ const DayWrap = styled.div`
   border: 1px solid #203740;
   margin-bottom: 3%;
   background-color: #cde6ff;
+  transition: all 0.2s ease-in-out;
   &:hover {
     box-shadow: 5px -5px #67737f;
+    transform: scale(1.05);
   }
 `;
 
