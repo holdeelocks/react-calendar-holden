@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 
 const DayWrap = styled.div`
-  height: 150px;
+  height: 200px;
   width: 100%;
   display: flex;
   padding: 1%;

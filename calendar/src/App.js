@@ -16,14 +16,19 @@ const CalendarWrapper = styled.div`
   h1 {
     font-size: 2rem;
     width: 100%;
-    margin-bottom: 2.5%;
+    margin: 0;
+    padding: 25px 0;
     color: #3f5f7f;
+    position: fixed;
+    background-color: white;
+    opacity: 0.8;
   }
   .button-container {
     width: 100%;
     display: flex;
     justify-content: space-between;
     margin-bottom: 2.5%;
+    padding-top: 100px;
   }
   button {
     height: 25px;
