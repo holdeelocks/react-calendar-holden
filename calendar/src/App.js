@@ -4,7 +4,7 @@ import Day from "./components/Days";
 import styled from "styled-components";
 import { createGlobalStyle } from "styled-components";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import { Button, Modal, ModalHeader, ModalBody } from "reactstrap";
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -119,12 +119,15 @@ class App extends Component {
           }
         }
       },
-      showModal: !this.state.showModal
+      showModal: !this.state.showModal,
+      title: "",
+      description: "",
+      time: "",
+      currentDate: ""
     }));
   };
 
   toggle = e => {
-    console.log(e.target.dataset.date);
     this.setState({
       showModal: !this.state.showModal,
       currentDate: e.target.dataset.date
@@ -158,8 +161,6 @@ class App extends Component {
         &times;
       </button>
     );
-    console.log(this.state.currentDate);
-
     return (
       <CalendarWrapper>
         <GlobalStyle />

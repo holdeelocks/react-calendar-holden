@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-// import moment from "../momentRange";
 import styled from "styled-components";
 
 const DayWrap = styled.div`
@@ -75,6 +74,7 @@ const Day = props => {
               <Event key={props.events[key].time}>
                 <p key={props.events[key].time}>{props.events[key].title}</p>
                 <p>{props.events[key].time}</p>
+                <p>{props.events[key].description}</p>
               </Event>
             );
           })}
