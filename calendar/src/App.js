@@ -3,6 +3,8 @@ import moment from "./momentRange";
 import Day from "./components/Days";
 import styled from "styled-components";
 import { createGlobalStyle } from "styled-components";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -11,34 +13,44 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 const CalendarWrapper = styled.div`
-  width: 90%;
+  width: 100%;
   margin: 0 auto;
-  h1 {
-    font-size: 2rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+
+  .header-container {
     width: 100%;
-    margin: 0;
-    padding: 25px 0;
-    color: #3f5f7f;
-    position: fixed;
-    background-color: white;
-    opacity: 0.8;
-  }
-  .button-container {
-    width: 100%;
+    padding: 0 2%;
+    margin: 0 auto;
     display: flex;
     justify-content: space-between;
-    margin-bottom: 2.5%;
-    padding-top: 100px;
-  }
-  button {
-    height: 25px;
-    background-color: lightblue;
-    opacity: 0.5;
-    cursor: pointer;
-    &:hover {
-      background-color: black;
+    align-items: center;
+    position: fixed;
+    background-color: #3f5f7f;
+    opacity: 0.8;
+    height: 100px;
+    h1 {
+      font-size: 2rem;
+      margin: 0;
       color: white;
     }
+    button {
+      height: 25px;
+      background-color: lightblue;
+      cursor: pointer;
+      &:hover {
+        background-color: black;
+        color: white;
+      }
+    }
+  }
+  .calendar-container {
+    padding-top: 120px;
+    width: 90%;
+    margin: 0 auto;
   }
 `;
 
@@ -68,7 +80,11 @@ class App extends Component {
         }
       }
     },
-    currentMonth: "201811"
+    currentMonth: "201811",
+    showModal: false,
+    title: "",
+    time: "",
+    description: ""
   };
 
   nextMonth = () => {
@@ -88,6 +104,7 @@ class App extends Component {
   };
 
   addOrEditEvent = (ev, date, key) => {
+    console.log(ev.target.parentElement);
     if (!key) key = Date.now();
 
     this.setState(prevState => ({
@@ -97,8 +114,19 @@ class App extends Component {
           ...prevState.days[date],
           [key]: ev
         }
-      }
+      },
+      showModal: !this.state.showModal
     }));
+  };
+
+  toggle = e => {
+    console.log(e.target.parentElement.text);
+    this.setState({ showModal: !this.state.showModal });
+    console.log(this.state.showModal);
+  };
+
+  handleChange = ev => {
+    this.setState({ [ev.target.name]: ev.target.value });
   };
 
   deleteEvent = (date, key) => {
@@ -119,24 +147,83 @@ class App extends Component {
         .range("month")
         .by("days")
     );
+    const closeBtn = (
+      <button className="close" onClick={this.toggle}>
+        &times;
+      </button>
+    );
+
     return (
       <CalendarWrapper>
         <GlobalStyle />
-        <h1>
-          {moment(this.state.currentMonth, "YYYYMM").format("MMMM, YYYY")}
-        </h1>
-        <div className="button-container">
-          <button onClick={this.prevMonth}>&larr; Previous</button>
-          <button onClick={this.nextMonth}>Next &rarr;</button>
+        <div>
+          <Button color="danger" onClick={this.toggle}>
+            {this.props.buttonLabel}
+          </Button>
+          <Modal
+            isOpen={this.state.showModal}
+            toggle={this.toggle}
+            className={this.props.className}
+          >
+            <ModalHeader toggle={this.toggle} close={closeBtn}>
+              Add Or Edit An Event
+            </ModalHeader>
+            <ModalBody>
+              <form onSubmit={this.addOrEditEvent}>
+                <label name="title">
+                  Event Title:
+                  <input
+                    type="text"
+                    name="title"
+                    placeholder="event name here..."
+                    onChange={this.handleChange}
+                    value={this.state.title}
+                  />
+                </label>
+                <label name="time">
+                  Time:
+                  <input
+                    type="text"
+                    name="time"
+                    placeholder="time of event here..."
+                    onChange={this.handleChange}
+                    value={this.state.time}
+                  />
+                </label>
+                <label name="description">
+                  Description:
+                  <input
+                    type="text"
+                    name="description"
+                    placeholder="event description here.."
+                    onChange={this.handleChange}
+                    value={this.state.description}
+                  />
+                </label>
+                <Button color="primary" onClick={this.addOrEditEvent} />
+              </form>
+            </ModalBody>
+          </Modal>
         </div>
 
-        {dates.map(date => (
-          <Day
-            date={date}
-            key={date.format("YYYYMMDD")}
-            events={this.state.days[date.format("YYYYMMDD")]}
-          />
-        ))}
+        <div className="header-container">
+          <button onClick={this.prevMonth}>&larr;</button>
+          <h1>
+            {moment(this.state.currentMonth, "YYYYMM").format("MMMM, YYYY")}
+          </h1>
+          <button onClick={this.nextMonth}>&rarr;</button>
+        </div>
+
+        <div className="calendar-container">
+          {dates.map(date => (
+            <Day
+              date={date}
+              key={date.format("YYYYMMDD")}
+              events={this.state.days[date.format("YYYYMMDD")]}
+              click={this.toggle}
+            />
+          ))}
+        </div>
       </CalendarWrapper>
     );
   }
