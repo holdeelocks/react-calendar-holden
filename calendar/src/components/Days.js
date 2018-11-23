@@ -64,7 +64,9 @@ const Day = props => {
     <DayWrap>
       <div className="date-area">
         {props.date.format("ddd, Do")}
-        <button onClick={props.click}>Add An Event</button>
+        <button onClick={props.click} data-date={props.date.format("YYYYMMDD")}>
+          Add An Event
+        </button>
       </div>
       <EventWrapper>
         {props.events &&

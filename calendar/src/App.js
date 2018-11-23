@@ -82,6 +82,7 @@ class App extends Component {
     },
     currentMonth: "201811",
     showModal: false,
+    curentDate: "",
     title: "",
     time: "",
     description: ""
@@ -103,16 +104,19 @@ class App extends Component {
     }));
   };
 
-  addOrEditEvent = (ev, date, key) => {
-    console.log(ev.target.parentElement);
-    if (!key) key = Date.now();
+  addOrEditEvent = () => {
+    let key = Date.now();
 
     this.setState(prevState => ({
       days: {
         ...prevState.days,
-        [date]: {
-          ...prevState.days[date],
-          [key]: ev
+        [this.state.currentDate]: {
+          ...prevState.days[this.state.currentDate],
+          [key]: {
+            title: this.state.title,
+            time: this.state.time,
+            description: this.state.description
+          }
         }
       },
       showModal: !this.state.showModal
@@ -120,9 +124,11 @@ class App extends Component {
   };
 
   toggle = e => {
-    console.log(e.target.parentElement.text);
-    this.setState({ showModal: !this.state.showModal });
-    console.log(this.state.showModal);
+    console.log(e.target.dataset.date);
+    this.setState({
+      showModal: !this.state.showModal,
+      currentDate: e.target.dataset.date
+    });
   };
 
   handleChange = ev => {
@@ -152,6 +158,7 @@ class App extends Component {
         &times;
       </button>
     );
+    console.log(this.state.currentDate);
 
     return (
       <CalendarWrapper>
