@@ -23,10 +23,16 @@ const DayWrap = styled.div`
     width: 25%;
     border-right: 1px dashed black;
     padding-right: 2%;
+    color: white;
+    text-shadow: 3px 3px #3f5f7f;
+    font-weight: bold;
+    font-size: 1.5rem;
 
     button {
       width: 80%;
       margin-top: 10%;
+      height: auto;
+      font-size: 0.75rem;
     }
   }
 `;
@@ -64,7 +70,7 @@ const Day = props => {
       <div className="date-area">
         {props.date.format("ddd, Do")}
         <button onClick={props.click} data-date={props.date.format("YYYYMMDD")}>
-          Add An Event
+          Add Event
         </button>
       </div>
       <EventWrapper>

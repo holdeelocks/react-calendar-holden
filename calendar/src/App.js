@@ -30,7 +30,8 @@ const CalendarWrapper = styled.div`
     align-items: center;
     position: fixed;
     background-color: #3f5f7f;
-    opacity: 0.8;
+    opacity: 0.9;
+    z-index: 2;
     height: 100px;
     h1 {
       font-size: 2rem;
@@ -165,9 +166,6 @@ class App extends Component {
       <CalendarWrapper>
         <GlobalStyle />
         <div>
-          <Button color="danger" onClick={this.toggle}>
-            {this.props.buttonLabel}
-          </Button>
           <Modal
             isOpen={this.state.showModal}
             toggle={this.toggle}
