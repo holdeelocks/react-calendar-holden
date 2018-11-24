@@ -34,6 +34,7 @@ const DayWrap = styled.div`
       height: auto;
       font-size: 0.75rem;
       background-color: white;
+      color: #3f5f7f;
       border: 1px solid #3f5f7f;
       &:hover {
         background-color: #3f5f7f;

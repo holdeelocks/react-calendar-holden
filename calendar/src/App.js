@@ -30,13 +30,14 @@ const CalendarWrapper = styled.div`
     align-items: center;
     position: fixed;
     background-color: #3f5f7f;
-    opacity: 0.9;
+    opacity: 0.75;
     z-index: 2;
     height: 100px;
     h1 {
       font-size: 2rem;
       margin: 0;
       color: white;
+      text-shadow: -3px -3px black;
     }
     button {
       height: 25px;
@@ -215,7 +216,7 @@ class App extends Component {
         <div className="header-container">
           <button onClick={this.prevMonth}>&larr;</button>
           <h1>
-            {moment(this.state.currentMonth, "YYYYMM").format("MMMM, YYYY")}
+            {moment(this.state.currentMonth, "YYYYMM").format("MMMM YYYY")}
           </h1>
           <button onClick={this.nextMonth}>&rarr;</button>
         </div>
