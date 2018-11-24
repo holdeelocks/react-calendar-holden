@@ -33,6 +33,13 @@ const DayWrap = styled.div`
       margin-top: 10%;
       height: auto;
       font-size: 0.75rem;
+      background-color: white;
+      border: 1px solid #3f5f7f;
+      &:hover {
+        background-color: #3f5f7f;
+        color: white;
+        border: 1px solid white;
+      }
     }
   }
 `;
