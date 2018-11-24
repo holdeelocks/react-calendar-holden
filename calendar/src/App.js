@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import moment from "./momentRange";
-import Day from "./components/Days";
+import Calendar from "./components/Calendar";
+
 import styled from "styled-components";
 import { createGlobalStyle } from "styled-components";
-import "bootstrap/dist/css/bootstrap.min.css";
-import { Button, Modal, ModalHeader, ModalBody } from "reactstrap";
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -33,6 +32,7 @@ const CalendarWrapper = styled.div`
     opacity: 0.75;
     z-index: 2;
     height: 100px;
+    top: 0;
     h1 {
       font-size: 2rem;
       margin: 0;
@@ -82,12 +82,7 @@ class App extends Component {
         }
       }
     },
-    currentMonth: "201811",
-    showModal: false,
-    curentDate: "",
-    title: "",
-    time: "",
-    description: ""
+    currentMonth: "201811"
   };
 
   nextMonth = () => {
@@ -106,38 +101,18 @@ class App extends Component {
     }));
   };
 
-  addOrEditEvent = () => {
-    let key = Date.now();
+  addOrEditEvent = (e, date, key) => {
+    if (!key) key = Date.now();
 
     this.setState(prevState => ({
       days: {
         ...prevState.days,
-        [this.state.currentDate]: {
-          ...prevState.days[this.state.currentDate],
-          [key]: {
-            title: this.state.title,
-            time: this.state.time,
-            description: this.state.description
-          }
+        [date]: {
+          ...prevState.days[date],
+          [key]: e
         }
-      },
-      showModal: !this.state.showModal,
-      title: "",
-      description: "",
-      time: "",
-      currentDate: ""
+      }
     }));
-  };
-
-  toggle = e => {
-    this.setState({
-      showModal: !this.state.showModal,
-      currentDate: e.target.dataset.date
-    });
-  };
-
-  handleChange = ev => {
-    this.setState({ [ev.target.name]: ev.target.value });
   };
 
   deleteEvent = (date, key) => {
@@ -153,65 +128,15 @@ class App extends Component {
   };
 
   render() {
-    let dates = Array.from(
-      moment(this.state.currentMonth, "YYYYMM")
-        .range("month")
-        .by("days")
-    );
-    const closeBtn = (
-      <button className="close" onClick={this.toggle}>
-        &times;
-      </button>
-    );
+    // let dates = Array.from(
+    //   moment(this.state.currentMonth, "YYYYMM")
+    //     .range("month")
+    //     .by("days")
+    // );
+
     return (
       <CalendarWrapper>
         <GlobalStyle />
-        <div>
-          <Modal
-            isOpen={this.state.showModal}
-            toggle={this.toggle}
-            className={this.props.className}
-          >
-            <ModalHeader toggle={this.toggle} close={closeBtn}>
-              Add Or Edit An Event
-            </ModalHeader>
-            <ModalBody>
-              <form onSubmit={this.addOrEditEvent}>
-                <label name="title">
-                  Event Title:
-                  <input
-                    type="text"
-                    name="title"
-                    placeholder="event name here..."
-                    onChange={this.handleChange}
-                    value={this.state.title}
-                  />
-                </label>
-                <label name="time">
-                  Time:
-                  <input
-                    type="text"
-                    name="time"
-                    placeholder="time of event here..."
-                    onChange={this.handleChange}
-                    value={this.state.time}
-                  />
-                </label>
-                <label name="description">
-                  Description:
-                  <input
-                    type="text"
-                    name="description"
-                    placeholder="event description here.."
-                    onChange={this.handleChange}
-                    value={this.state.description}
-                  />
-                </label>
-                <Button color="primary" onClick={this.addOrEditEvent} />
-              </form>
-            </ModalBody>
-          </Modal>
-        </div>
 
         <div className="header-container">
           <button onClick={this.prevMonth}>&larr;</button>
@@ -222,14 +147,14 @@ class App extends Component {
         </div>
 
         <div className="calendar-container">
-          {dates.map(date => (
-            <Day
-              date={date}
-              key={date.format("YYYYMMDD")}
-              events={this.state.days[date.format("YYYYMMDD")]}
-              click={this.toggle}
-            />
-          ))}
+          <Calendar
+            month={this.state.currentMonth}
+            days={this.state.days}
+            addOrEditEvent={this.addOrEditEvent}
+            deleteEvent={this.deleteEvent}
+            nextMonth={this.nextMonth}
+            prevMonth={this.prevMonth}
+          />
         </div>
       </CalendarWrapper>
     );
